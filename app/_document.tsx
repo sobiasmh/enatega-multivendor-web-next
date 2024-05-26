@@ -7,6 +7,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <script src="https://cdn.shadecdn.com/path/to/shadecdn.js"></script>
+          
         </Head>
         <body>
           <Main />

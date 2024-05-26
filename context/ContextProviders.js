@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ApolloProvider } from '@apollo/client';
-import client from '../lib/apolloClient'; 
+import client from '../lib/apollo/apolloClient'; 
 
 export const ContextProviders = ({ children }) => {
 

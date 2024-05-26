@@ -1,0 +1,17 @@
+/* Buttons.css */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .spinner svg {
+    animation: rotate 2s linear infinite;
+  }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
