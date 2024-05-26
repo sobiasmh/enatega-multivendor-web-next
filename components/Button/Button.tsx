@@ -26,6 +26,8 @@ const Buttons = ({ ...props }) => {
   return (
     <button
       disabled={props.disable}
+      className={props.className}
+
       style={{
         height: props.height,
         width: props.width,
