@@ -3,6 +3,7 @@ import Geocode from "react-geocode";
 import ConfigurableValues from "../config/constants";
 
 export default function useLocation() {
+  
   const { GOOGLE_MAPS_KEY } = ConfigurableValues();
 
   Geocode.setApiKey(GOOGLE_MAPS_KEY);

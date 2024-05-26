@@ -60,12 +60,7 @@ const GoogleMapsLoader = ({ children, LIBRARIES, GOOGLE_MAPS_KEY }) => {
     return (
       <>
         {children}
-        {/* <FlashMessage
-          severity={"info"}
-          alertMessage={message}
-          open={message !== null}
-          handleClose={handleClose}
-        /> */}
+       
       </>
     );
   };
