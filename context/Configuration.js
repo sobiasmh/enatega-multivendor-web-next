@@ -2,7 +2,9 @@ import { gql, useQuery } from '@apollo/client'
 import React from 'react'
 import { getConfiguration } from '../lib/apollo/server'
 
-const GETCONFIGURATION = gql`${getConfiguration}`
+const GETCONFIGURATION = gql`
+  ${getConfiguration}
+`
 
 const ConfigurationContext = React.createContext({})
 

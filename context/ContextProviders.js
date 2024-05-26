@@ -1,13 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ApolloProvider } from '@apollo/client';
-import client from '../lib/apollo/apolloClient'; 
+import { ConfigurationProvider } from "./Configuration";
+import { LocationProvider } from "./Location";
+import setupAplloClient from "../lib/apollo/index";
 
 export const ContextProviders = ({ children }) => {
+    const client = setupAplloClient();
 
     return (
         <ApolloProvider client={client}>
-            {children}
+            <ConfigurationProvider>
+                <LocationProvider>
+
+                    {children}
+                </LocationProvider>
+            </ConfigurationProvider>
         </ApolloProvider>
 
     );
