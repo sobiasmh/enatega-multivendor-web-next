@@ -8,7 +8,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Left side */}
         <div className="flex items-center space-x-4">
-          <div className="w-8 h-8 bg-gray-700 rounded-full logo-container">
+          <div className="w-8 h-8  rounded-full">
             <Image
               src="/logo.svg"
               alt="Enatega Logo"
@@ -38,7 +38,7 @@ const Header = () => {
             radius="30px"
           />
           </a>
-          <a className="text-white hover:text-gray-300">
+          <a className="text-white hover:text-gray-300 hidden md:block lg:block 2xl:block sm:block">
           <Buttons
             bgcolor="#5bc32c"
             color="black"
@@ -49,7 +49,7 @@ const Header = () => {
           />
           </a>
           
-          <div className="relative">
+          <div className="hidden md:block lg:block 2xl:block sm:block relative">
             <CartIcon />{" "}
           </div>
         </div>

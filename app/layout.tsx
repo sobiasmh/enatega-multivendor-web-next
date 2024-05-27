@@ -8,6 +8,7 @@ import ConfigurableValues from "../config/constants";
 import GoogleMapsLoader from "@/components/GoogleMapsLoader/GoogleMapsLoader";
 import { ConfigurationProvider } from "@/context/Configuration";
 import { LocationProvider } from "@/context/Location";
+import Footer from '@/components/Footer/Footer';
 
 
 export default function RootLayout({ children }: PropsWithChildren<{}>) {
@@ -15,6 +16,11 @@ export default function RootLayout({ children }: PropsWithChildren<{}>) {
 
   return (
     <html lang="en">
+      <head>
+        <title>Enatega-Food Delivery</title>
+        <meta name='description' content='Enatega-Food Delivery' />
+        <link rel='icon' href='/logo.svg' />
+        </head>
       <ContextProvider>
         <GoogleMapsLoader
           GOOGLE_MAPS_KEY={GOOGLE_MAPS_KEY}
@@ -23,6 +29,7 @@ export default function RootLayout({ children }: PropsWithChildren<{}>) {
           <body>
             <Header />
             {children}
+            <Footer/>
           </body>
         </GoogleMapsLoader>
       </ContextProvider>

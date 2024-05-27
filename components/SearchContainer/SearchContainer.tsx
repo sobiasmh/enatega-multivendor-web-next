@@ -13,6 +13,8 @@ import RestMarker from "../../public/rest-map-2.png";
 import { mapStyles } from "../../public/assets/mapStyles";
 import "tailwindcss/tailwind.css";
 import Buttons from "../Button/Button";
+import LocationIcon from "../../public/Icons/LocationIcon";
+import RestaurantCards from "../RestaurantCard/RestaurantCard";
 
 const autocompleteService = { current: null };
 const RESTAURANTS = gql`
@@ -112,12 +114,26 @@ const SearchContainer: React.FC<{
         }
         setOptions(newOptions);
       }
+
+      console.log("optionshere", options)
     });
 
     return () => {
       active = false;
     };
   }, [value, inputValue, fetch]);
+
+  useEffect(() => {
+    if (loading) {
+      setInputValue("Loading ...");
+    } else if (search) {
+      setInputValue(search);
+    } else if (location) {
+      setInputValue(location.deliveryAddress);
+    } else {
+      setInputValue("");
+    }
+  }, [loading, search, location]);
 
   useEffect(() => {
     if (!location) return;
@@ -127,12 +143,30 @@ const SearchContainer: React.FC<{
       latitude: parseFloat(location.latitude) || null,
     };
     fetchRestaurants({ variables });
+    console.log("fetchRestaurants", fetchRestaurants, data);
     fetchRef.current = true;
   }, [location]);
+
+  const findResClick = () => {
+    console.log("fetchRestaurants");
+
+    const variables = {
+      longitude: parseFloat(location.longitude) || null,
+      latitude: parseFloat(location.latitude) || null,
+    };
+    console.log("fetchRestaurants 2");
+
+    fetchRestaurants({ variables });
+    console.log("fetchRestaurants 3");
+
+    console.log("fetchRestaurants334", fetchRestaurants, data);
+    // fetchRef.current = true;
+  };
 
   const handleLocationButtonClick = () => {
     setLoading(true);
     getCurrentLocation(locationCallback);
+    console.log("location here", location);
   };
 
   useEffect(() => {
@@ -223,19 +257,42 @@ const SearchContainer: React.FC<{
                 </span>
                 <input
                   type="text"
-                  className="flex-grow px-4 py-2 border-none focus:outline-none focus:ring focus:border-blue-300 bg-white text-gray-600 rounded-r-lg"
+                  className="flex-grow px-4 py-2 border-none focus:outline-none focus:ring focus:border-blue-300 bg-white text-gray-600 "
                   placeholder="Enter Delivery Address"
                   value={
                     loading
                       ? "Loading ..."
-                      : search
-                        ? search
-                        : location
-                          ? location.deliveryAddress
-                          : ""
+                      :inputValue
                   }
-                  onChange={(e) => setInputValue(e.target.value)}
-                />
+                  onChange={(event) => {
+                    const newValue = event.target.value;
+                    if (newValue) {
+                                        /* @ts-ignore TODO: Refactor link to address type error */
+                      const b = new window.google.maps.Geocoder();
+                                        /* @ts-ignore TODO: Refactor link to address type error */
+                      b.geocode({ placeId: newValue.place_id }, (res) => {
+                        const location = res[0].geometry.location;
+                        setLocation({
+                          label: "Home",
+                                            /* @ts-ignore TODO: Refactor link to address type error */
+                          deliveryAddress: newValue.description,
+                          latitude: location.lat(),
+                          longitude: location.lng(),
+                        });
+                      });
+                    }
+                    setInputValue(newValue);
+                  }}
+                  
+                />{" "}
+                <span className="h-[40px] p-1 bg-white rounded-r-lg">
+                  <LocationIcon
+                    onClick={(e: any) => {
+                      setLoading(true);
+                      getCurrentLocation(locationCallback);
+                    }}
+                  />
+                </span>
               </div>
               <div className="ml-4 mt-4 md:mt-0 lg:mt-0 2xl:mt-0 flex justify-center">
                 <Buttons
@@ -245,11 +302,10 @@ const SearchContainer: React.FC<{
                   height="44px"
                   width="172px"
                   radius="30px"
-                  // onClick={(e) => {
-                  //   e.preventDefault();
-                  //   if (location) {
-                  //     router.push("/restaurant-list");
-                  //   }}
+                  onClick={(e: any) => {
+                    console.log("heloooooooooooooooooooooooooooo");
+                    findResClick();
+                  }}
                 />
               </div>
             </div>
@@ -264,8 +320,13 @@ const SearchContainer: React.FC<{
               />
             </div>
           )}
+
         </div>
       </div>
+      {restaurants &&
+<div className="bg-white absolute bottom-0 left-0 w-full">
+      <RestaurantCards restaurants={restaurants} />
+    </div>}
     </div>
   );
 };
