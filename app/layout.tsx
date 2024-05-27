@@ -6,8 +6,6 @@ import ContextProvider from "./context-provider";
 import Header from "@/components/Header/Header";
 import ConfigurableValues from "../config/constants";
 import GoogleMapsLoader from "@/components/GoogleMapsLoader/GoogleMapsLoader";
-import { ConfigurationProvider } from "@/context/Configuration";
-import { LocationProvider } from "@/context/Location";
 import Footer from '@/components/Footer/Footer';
 
 

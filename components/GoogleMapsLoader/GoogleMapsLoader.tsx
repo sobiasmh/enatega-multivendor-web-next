@@ -30,12 +30,7 @@ const GoogleMapsLoader = ({ children, LIBRARIES, GOOGLE_MAPS_KEY }) => {
             })
             .catch(console.log);
   
-          onMessage(messaging, function (payload:any) {
-            // Customize notification here
-            const { title, body } = payload.notification;
-          
-            
-          });
+        
         }
       };
       initializeFirebase();
